@@ -1,5 +1,6 @@
 package com.tuoppi.boot.config;
 
+import java.util.Properties;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,11 @@ public class PersistenceContext {
         emfb.setPackagesToScan("com.tuoppi.boot.model");
         emfb.setDataSource(ds);
         emfb.setJpaVendorAdapter(va);
+        
+        Properties jpaProperties = new Properties();
+        jpaProperties.setProperty("hbm2ddl", "create-drop");
+        emfb.setJpaProperties(jpaProperties);
+        
         return emfb;
     }
     
