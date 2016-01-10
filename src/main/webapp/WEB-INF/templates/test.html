@@ -1,12 +1,24 @@
 <!DOCTYPE html>
 
-<html>
+<html xmlns:th="http://www.thymeleaf.org/">
     <head>
         <title>TODO supply a title</title>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </head>
     <body>
-        <div>TODO write content</div>
+        <form method="POST" th:object="${bindingtester}">
+            <div class="errors" th:if="${#fields.hasErrors('*')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('*')}"
+                        th:text="${err}">Input is incorrect</li>
+                </ul>
+            </div>
+            <label th:class="${#fields.hasErrors('name')}? 'error'">Name: </label>
+            <input type="text" th:field="*{name}" th:class="${#fields.hasErrors('name')}? 'error'" /><br/>
+            <label th:class="${#fields.hasErrors('value')}? 'error'">Value: </label>
+            <input type="text" th:field="*{value}" th:class="${#fields.hasErrors('value')}? 'error'" /><br/>
+            <input type="submit" value="Submit" />
+        </form>
     </body>
 </html>
