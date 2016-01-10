@@ -1,6 +1,7 @@
 package com.tuoppi.boot.model;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -33,7 +34,10 @@ public class ProductStorage implements Serializable {
         return id;
     }
 
-    @OneToOne
+    @OneToOne (cascade = {
+        CascadeType.PERSIST,
+        CascadeType.MERGE
+    })
     public Product getProduct() {
         return product;
     }

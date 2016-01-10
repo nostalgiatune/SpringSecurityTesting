@@ -2,8 +2,8 @@ package com.tuoppi.boot.service;
 
 import com.tuoppi.boot.dao.ProductDAO;
 import com.tuoppi.boot.model.Product;
+import com.tuoppi.boot.model.ProductStorage;
 import java.util.Arrays;
-import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +19,9 @@ public class ProductService {
     
     @Autowired
     private ProductDAO dao;
+    
+    @Autowired
+    private ProductStorageService storage;
     
     public Product getProduct(Product product) {
         return dao.getProduct(product);
@@ -42,12 +45,20 @@ public class ProductService {
     
     //@PostConstruct
     public void init() {
+        
         Product[] products = {
             new Product("Product1"),
             new Product("Product2"),
             new Product("Product3"),
         };
-        Arrays.stream(products).forEach(dao::saveProduct);
+        
+        ProductStorage[] storageInfo = {
+            new ProductStorage(products[0], 100, 999),
+            new ProductStorage(products[1], 10, 12.34),
+            new ProductStorage(products[2], 1, 10)
+        };
+        
+        Arrays.stream(storageInfo).forEach(storage::saveStorageInfo);
     }
     
 }

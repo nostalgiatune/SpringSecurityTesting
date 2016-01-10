@@ -40,7 +40,8 @@ public class PersistenceContext {
         emfb.setJpaVendorAdapter(va);
         
         Properties jpaProperties = new Properties();
-        jpaProperties.setProperty("hbm2ddl", "create-drop");
+        jpaProperties.setProperty("hibernate.hbm2ddl.auto",
+                env.getProperty("hibernate.hbm2dll.auto"));
         emfb.setJpaProperties(jpaProperties);
         
         return emfb;
